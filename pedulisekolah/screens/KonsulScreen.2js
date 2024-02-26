@@ -1,0 +1,81 @@
+import React, {useState} from 'react';
+import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+
+const options = [
+  {image: require('./../src/image/user.png'), value: 'option1'},
+  {image: require('./../src/image/user.png'), value: 'option2'},
+  {image: require('./../src/image/user.png'), value: 'option3'},
+  {image: require('./../src/image/user.png'), value: 'option4'},
+];
+
+const RadioButton = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  return (
+    <View style={styles.container}>
+      {options.map((option, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => setSelectedOption(option.value)}
+          style={[
+            styles.optionContainer,
+            {
+              borderColor:
+                option.value === selectedOption ? '#2F80ED' : '#EAEAEA',
+            },
+          ]}>
+          <Image source={option.image} style={styles.image} />
+          <Text style={styles.text}>{option.value}</Text>
+          {option.value === selectedOption && (
+            <Image
+              source={require('./../src/image/check.png')}
+              style={styles.checkImage}
+            />
+          )}
+        </TouchableOpacity>
+      ))}
+      {selectedOption && (
+        <Text style={styles.selectedOption}>
+          Radio button yang terpilih: {selectedOption}
+        </Text>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  optionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderWidth: 2,
+    borderRadius: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  imageKonsultan: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  textKonsultan: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    flex: 1,
+  },
+  checkImage: {
+    width: 20,
+    height: 20,
+  },
+  selectedOptionKonsultan: {
+    marginTop: 10,
+    fontWeight: 'bold',
+    color: '#2F80ED',
+  },
+});
+
+export default RadioButton;
